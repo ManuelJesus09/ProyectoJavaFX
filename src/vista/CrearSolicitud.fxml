@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="550.0" minWidth="300.0" prefHeight="600.0" prefWidth="600.0" stylesheets="@sky.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.ControladorCrearSolicitud">
+    <center>
+        <VBox prefHeight="384.0" prefWidth="600.0" stylesheets="@sky.css" BorderPane.alignment="CENTER">
+            <children>
+                <TextFlow prefHeight="34.0" prefWidth="600.0" textAlignment="CENTER">
+                    <children>
+                        <Label text="Introduzca los datos para crear la solicitud">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </TextFlow>
+                <AnchorPane prefHeight="96.0" prefWidth="600.0" stylesheets="@sky.css">
+                    <children>
+                        <Label layoutX="40.0" layoutY="15.0" text="Número de referencia de la solicitud:">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="270.0" layoutY="61.0" text="Fecha:">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="TFReferencia" editable="false" layoutX="342.0" layoutY="9.0" />
+                        <TextField fx:id="TFFecha" editable="false" layoutX="342.0" layoutY="55.0" />
+                    </children>
+                </AnchorPane>
+                <BorderPane prefHeight="350.0" prefWidth="600.0" stylesheets="@sky.css">
+                    <top>
+                        <TextFlow prefHeight="23.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                            <children>
+                                <Label text="Productos:" />
+                            </children>
+                        </TextFlow>
+                    </top>
+                    <center>
+                        <TableView fx:id="tabla" prefHeight="200.0" prefWidth="600.0" stylesheets="@sky.css" BorderPane.alignment="CENTER">
+                            <columns>
+                                <TableColumn fx:id="columnaNombre" prefWidth="145.0" text="Nombre" />
+                                <TableColumn fx:id="columnaProblema" prefWidth="249.0" text="Problema" />
+                                <TableColumn fx:id="columnaEAN" prefWidth="84.0" text="Código EAN" />
+                                <TableColumn fx:id="columnaNumeroFactura" prefWidth="121.0" text="Número de factura" />
+                            </columns>
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                            </columnResizePolicy>
+                        </TableView>
+                    </center>
+                    <bottom>
+                        <AnchorPane prefHeight="44.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                            <children>
+                                <Button layoutX="212.0" layoutY="5.0" mnemonicParsing="false" onAction="#crearProducto" prefWidth="88.0" text="Añadir" AnchorPane.leftAnchor="193.0" />
+                                <Button layoutX="313.0" layoutY="5.0" mnemonicParsing="false" onAction="#eliminar" text="Eliminar" AnchorPane.rightAnchor="203.0" />
+                            </children>
+                        </AnchorPane>
+                    </bottom>
+                </BorderPane>
+                <AnchorPane prefHeight="53.0" prefWidth="600.0">
+                    <children>
+                        <Button layoutX="110.0" layoutY="6.0" mnemonicParsing="false" onAction="#volver" text="Volver" AnchorPane.leftAnchor="51.0" />
+                        <Button layoutX="432.0" layoutY="3.0" mnemonicParsing="false" onAction="#enviarSolicitud" text="Enviar solicitud" AnchorPane.rightAnchor="31.0" />
+                    </children>
+                </AnchorPane>
+            </children>
+        </VBox>
+    </center>
+   <top>
+      <VBox prefHeight="82.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar stylesheets="@sky.css">
+              <menus>
+                <Menu mnemonicParsing="false" text="Archivo">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#volver" text="Salir" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Operaciones">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#crearProducto" text="Añadir producto" />
+                        <MenuItem mnemonicParsing="false" onAction="#eliminar" text="Eliminar producto seleccionado" />
+                        <MenuItem mnemonicParsing="false" onAction="#enviarSolicitud" text="Enviar solicitud" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+              <ToolBar prefHeight="40.0" prefWidth="200.0" stylesheets="@sky.css">
+                  <items>
+                      <Button fx:id="BTAdd" mnemonicParsing="false" onAction="#crearProducto" style="-fx-graphic: url('images/add.png')" wrapText="true">
+                          <tooltip>
+                              <Tooltip text="Añadir producto." />
+                          </tooltip>
+                      </Button>
+                      <Button fx:id="BTDelete" mnemonicParsing="false" onAction="#eliminar" style="-fx-graphic: url('images/delete.png')" wrapText="true">
+                          <tooltip>
+                              <Tooltip text="Eliminar producto seleccionado." />
+                          </tooltip>
+                      </Button>
+                      <Button fx:id="BTSend" mnemonicParsing="false" onAction="#enviarSolicitud" style="-fx-graphic: url('images/send.png')" wrapText="true">
+                          <tooltip>
+                              <Tooltip text="Enviar solicitud." />
+                          </tooltip>
+                      </Button>
+                  </items>
+              </ToolBar>
+         </children>
+      </VBox>
+   </top>
+</BorderPane>
