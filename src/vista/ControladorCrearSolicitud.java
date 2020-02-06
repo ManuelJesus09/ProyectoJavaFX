@@ -24,9 +24,9 @@ import javafx.stage.Stage;
 import proyectointerfacesfx.Principal;
 
 /**
- * FXML Controller class
+ * Clase que controla el comportamiento de la ventana para crear una solicitud
  *
- * @author Manuel
+ * @author Manuel Jesus Sanchez Vega
  */
 public class ControladorCrearSolicitud {
 
@@ -48,6 +48,10 @@ public class ControladorCrearSolicitud {
     @FXML
     private TableColumn<Producto, Integer> columnaNumeroFactura;
 
+    /**
+     * Metodo que inicializa las columnas de la tabla y rellena los campos fecha y referencia
+     * @throws RMAException lanza excepcion si los datos no estan correctamente
+     */
     @FXML
     private void initialize() throws RMAException {
         // Inicializa las columnas, de forma que se pueda añadir objetos
@@ -60,9 +64,14 @@ public class ControladorCrearSolicitud {
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         TFFecha.setText(format.format(new Date()));
 
+        //Asigna una referencia unica
         TFReferencia.setText(String.valueOf(DAORma.crearReferencia()));
     }
 
+    /**
+     * Metodo que abre una nueva ventana para poder crear un producto y añadirlo
+     * a la solicitud
+     */
     @FXML
     public void crearProducto() {
 
@@ -82,8 +91,9 @@ public class ControladorCrearSolicitud {
 
             //Annadir controlador y datos
             ControladorCrearProducto controlador = loader.getController();
-            controlador.setProperties(dialogo, primerStage, tabla);
+            controlador.setProperties(dialogo, tabla);
 
+            //Modifica el dialogo para que no se pueda modificar el tamaño, y lo muestra
             dialogo.setResizable(false);
             dialogo.showAndWait();
 
@@ -93,13 +103,21 @@ public class ControladorCrearSolicitud {
 
     }
 
+    /**
+     * Metodo que cierra la ventana actual
+     */
     @FXML
     private void volver() {
         dialogo.close();
     }
 
+    /**
+     * Metodo que elimina el producto de la tabla que actualmente esta seleccionado
+     */
     @FXML
-    private void eliminar() throws RMAException {
+    private void eliminar() {
+        
+        //Recoge el numero de la fila seleccionada
         int seleccion = tabla.getSelectionModel().getSelectedIndex();
         if (seleccion >= 0) {
 
@@ -121,8 +139,13 @@ public class ControladorCrearSolicitud {
         }
     }
 
+    /**
+     * Metodo que comprueba que la solicitud tiene productos, y si es asi,
+     * llama al metodo para insertar los datos en la bd
+     */
     @FXML
     private void enviarSolicitud() {
+        //Si no hay productos, muestra el error correspondiente
         if (ControladorPrincipal.productos.size() == 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("No hay productos");
@@ -150,6 +173,9 @@ public class ControladorCrearSolicitud {
         }
     }
 
+    /**
+     * Metodo que inserta los datos de la solicitud en la base de datos
+     */
     private void insertarDatos() {
 
         try (Statement insertarRma = ConexionBD.getConexion().createStatement()) {
@@ -178,6 +204,11 @@ public class ControladorCrearSolicitud {
         }
     }
 
+    /**
+     * Metodo que asigna valor a las variables con la que se va a interactuar
+     * @param dial
+     * @param prin 
+     */
     public void setDialog(Stage dial, Stage prin) {
         dialogo = dial;
         primerStage = prin;
@@ -186,7 +217,6 @@ public class ControladorCrearSolicitud {
     /**
      * Metodo que borra el producto de la lista que esta en el controlador
      * principal
-     *
      */
     private void eliminarProductoDeLista() {
 

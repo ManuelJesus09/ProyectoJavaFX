@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package adicional;
 
 import java.sql.ResultSet;
@@ -11,11 +6,16 @@ import java.sql.Statement;
 import javafx.scene.control.TableView;
 
 /**
- *
- * @author Manuel
+ *  Clase que interactua con la base de datos, introduciendo y recogiendo datos
+ * @author Manuel Jesus Sanchez Vega
  */
 public class DAORma {
 
+    /**
+     * Metodo que crea un numero de referencia para la solicitud aleatoriamente,
+     * y teniendo en cuenta que no exista en la base de datos
+     * @return devuelve el numero de referencia nuevo
+     */
     public static int crearReferencia() {
 
         int referencia = -1;
@@ -39,6 +39,11 @@ public class DAORma {
         return referencia;
     }
 
+    /**
+     * Metodo que rellena la tabla que se le pasa por parametros con los datos
+     * de la tabla rma de la base de datos
+     * @param tabla tabla a rellenar con los datos de la bd
+     */
     public static void rellenarTablaRma(TableView<RMA> tabla) {
         try (Statement sentencia = ConexionBD.getConexion().createStatement()) {
 
@@ -59,6 +64,11 @@ public class DAORma {
         }
     }
 
+    /**
+     * Metodo que rellena la tabla que se le pasa por parametros con los datos de los productos
+     * @param tabla tabla a rellenar
+     * @param numeroRma numero de rma que contiene los productos a añadir en la tabla
+     */
     public static void rellenarTablaProductosRMA(TableView<Producto> tabla, String numeroRma) {
 
         try (Statement sentencia = ConexionBD.getConexion().createStatement()) {
@@ -69,10 +79,12 @@ public class DAORma {
                 String nombreProd = resul.getString("nombre");
                 String poema = resul.getString("descripcion");
 
+                //Crea el producto con los datos recogidos
                 Producto temporal = new Producto();
                 temporal.setNombre(nombreProd);
                 temporal.setProblema(poema);
-                //Add fila
+                
+                //Annade la fila a la tabla
                 tabla.getItems().add(temporal);
             }
 

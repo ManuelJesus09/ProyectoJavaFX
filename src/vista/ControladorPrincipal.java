@@ -14,25 +14,23 @@ import javafx.scene.layout.VBox;
 import proyectointerfacesfx.Principal;
 
 /**
- *
- * @author Manuel
+ * Clase que maneja el comportamiento de la vista principal
+ * Contiene la variable productos, una lista donde trabaja con 
+ * los productos en memoria, para despues insertarlos en la bd
+ * @author Manuel Jesus Sanchez Vega
  */
 public class ControladorPrincipal {
 
-    private Principal clasePrincipal;
     private Stage primerStage;
     protected static LinkedList<Producto> productos;
 
-    @FXML
-    private void initialize() {
-        productos = new LinkedList<>();
-    }
-
-    public void setMain(Principal main, Stage primeraStage) {
-        clasePrincipal = main;
+    public void setPrimeraStage(Stage primeraStage) {
         primerStage = primeraStage;
     }
 
+    /**
+     * Metodo que carga una ventana nueva para crear una solicitud RMA
+     */
     @FXML
     private void crearSolicitud() {
         try {
@@ -56,6 +54,7 @@ public class ControladorPrincipal {
             //Carga el numero de Referencia
             int numReferencia = DAORma.crearReferencia();
 
+            //Modifica el dialogo para que no se pueda cambiar el tamaño y lo muestra
             dialogo.setResizable(false);
             dialogo.showAndWait();
 
@@ -64,6 +63,9 @@ public class ControladorPrincipal {
         }
     }
 
+    /**
+     * Metodo que abre una ventana para mostrar las solicitudes enviadas
+     */
     @FXML
     private void mostrarSolicitudes() {
         try {
@@ -82,8 +84,9 @@ public class ControladorPrincipal {
 
             //Annadir controlador y datos
             ControladorMostrarRma controlador = loader.getController();
-            controlador.setDialog(dialogo, primerStage);
+            controlador.setDialog( primerStage);
 
+            //Modifica el dialogo para que no se pueda cambiar el tamaño y lo muestra
             dialogo.setResizable(false);
             dialogo.showAndWait();
 

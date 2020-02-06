@@ -21,9 +21,8 @@ import javafx.stage.Stage;
 import proyectointerfacesfx.Principal;
 
 /**
- * FXML Controller class
- *
- * @author Manuel
+ * Clase que controla el comportamiento de la pantalla que muestra las solicitudes enviadas
+ * @author Manuel Jesus Sanchez Vega
  */
 public class ControladorMostrarRma implements Initializable {
 
@@ -36,7 +35,10 @@ public class ControladorMostrarRma implements Initializable {
     private Stage primer;
 
     /**
-     * Initializes the controller class.
+     * Metodo que inicializa las columnas de la tabla a mostrar y le
+     * añade a la tabla un controlador para captar el doble clic
+     * @param url
+     * @param rb 
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -58,10 +60,18 @@ public class ControladorMostrarRma implements Initializable {
 
     }
 
-    void setDialog(Stage dialogo, Stage primerStage) {
+    /**
+     * Metodo que asigna la primeraStage al controlador, para
+     * poder interactuar con ella en otros metodos
+     * @param primerStage vista con la que se va a interactuar
+     */
+    void setDialog(Stage primerStage) {
         primer = primerStage;
     }
 
+    /**
+     * Metodo que abre una nueva ventana que muestra los detalles de una solicitud en concreto,
+     */
     public void verDetalles() {
         try {
             //Carga la vista 
@@ -78,10 +88,11 @@ public class ControladorMostrarRma implements Initializable {
             dialogo.setScene(escena);
 
             //Annadir controlador y datos
-            ControlaforMostrarProductosRMA controlador2 = loader.getController();
+            ControladorMostrarProductosRMA controlador2 = loader.getController();
             String seleccionRma = tabla.getSelectionModel().getSelectedItem().getReferencia();
             controlador2.iniciarTabla(seleccionRma);
 
+            //Modifica el dialogo para que no se pueda cambiar el tamaño y lo muestra
             dialogo.setResizable(false);
             dialogo.showAndWait();
 

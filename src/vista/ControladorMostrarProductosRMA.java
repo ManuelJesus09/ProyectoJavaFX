@@ -9,13 +9,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
 /**
- *
- * @author Manuel
+ * Clase que inicia los parametros de la ventana que muestra los productos rma
+ * @author Manuel Jesus Sanchez Vega
  */
-public class ControlaforMostrarProductosRMA implements Initializable {
+public class ControladorMostrarProductosRMA implements Initializable {
 
     @FXML
     private TableView<Producto> tabla;
@@ -26,7 +25,8 @@ public class ControlaforMostrarProductosRMA implements Initializable {
     private String rmaSeleccionado;
 
     /**
-     * Initializes the controller class.
+     * 
+     * Metodo que inicia los nombres de columna de la tabla a mostrar
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -36,6 +36,10 @@ public class ControlaforMostrarProductosRMA implements Initializable {
 
     }
 
+    /**
+     * Metodo que inicia la tabla, y llama a un metodo que rellena esa tabla
+     * @param rma 
+     */
     void iniciarTabla(String rma) {
         rmaSeleccionado = rma;
         DAORma.rellenarTablaProductosRMA(tabla, rmaSeleccionado);

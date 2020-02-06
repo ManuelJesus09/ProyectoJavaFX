@@ -9,14 +9,18 @@ import javafx.stage.Stage;
 import vista.ControladorPrincipal;
 
 /**
- *
- * @author Manuel
+ * Clase que inicia la aplicacion para gestionar las solicitudes RMA
+ * @author Manuel Jesus Sanchez Vega
  */
 public class Principal extends Application {
     
     private Stage primaryStage;
     private AnchorPane ventanaPrincipal;
     
+    /**
+     * Metodo que pone un titulo a la ventana principal e llama al metodo iniciarLayout
+     * @param primaryStage , la ventana principal a la que se le cambia el nombre
+     */
     @Override
     public void start(Stage primaryStage) {
         
@@ -33,6 +37,10 @@ public class Principal extends Application {
         launch(args);
     }
     
+    /**
+     * Metodo que inicializa los componentes necesarios para lanzar la aplicacion
+     * Inicia la ventana principal y le asigna un controlador
+     */
     private void iniciarLayout() {
         
         try {
@@ -48,8 +56,9 @@ public class Principal extends Application {
 
             //Asigna el controlador
             ControladorPrincipal controlador = loader.getController();
-            controlador.setMain(this, primaryStage);
+            controlador.setPrimeraStage(primaryStage);
             
+            //Modifica la vista para que no se pueda cambiar el tamaño y la muestra
             primaryStage.setResizable(false);
             primaryStage.show();
             

@@ -10,13 +10,12 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
- *
- * @author Manuel
+ * Clase que controla el comportamiento de la ventana que crea un producto
+ * @author Manuel Jesus Sanchez Vega
  */
 public class ControladorCrearProducto {
 
-    private Stage dialogo, primerStage;
+    private Stage dialogo;
     private TableView<Producto> tabla;
 
     @FXML
@@ -28,13 +27,20 @@ public class ControladorCrearProducto {
     @FXML
     private TextArea TAProblema;
 
-    void setProperties(Stage dialogo, Stage primerStage, TableView<Producto> tab) {
+    /**
+     * Metodo que asigna valor a las variables con las que se va a interactuar
+     * @param dialogo
+     * @param tab 
+     */
+    void setProperties(Stage dialogo, TableView<Producto> tab) {
 
         this.dialogo = dialogo;
-        this.primerStage = primerStage;
         this.tabla = tab;
     }
 
+    /**
+     * Metodo que vacia los textField de la vista
+     */
     @FXML
     private void limpiarDatos() {
 
@@ -45,6 +51,10 @@ public class ControladorCrearProducto {
 
     }
 
+    /**
+     * Metodo que añade un producto a la tabla y a la lista de productos,
+     * siempre que no este repetido y que los datos del producto sean validos
+     */
     @FXML
     private void addProducto() {
         try {
