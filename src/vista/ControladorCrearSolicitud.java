@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,6 +23,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import proyectointerfacesfx.Principal;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 
 /**
  * Clase que controla el comportamiento de la ventana para crear una solicitud
@@ -49,7 +55,9 @@ public class ControladorCrearSolicitud {
     private TableColumn<Producto, Integer> columnaNumeroFactura;
 
     /**
-     * Metodo que inicializa las columnas de la tabla y rellena los campos fecha y referencia
+     * Metodo que inicializa las columnas de la tabla y rellena los campos fecha
+     * y referencia
+     *
      * @throws RMAException lanza excepcion si los datos no estan correctamente
      */
     @FXML
@@ -112,11 +120,12 @@ public class ControladorCrearSolicitud {
     }
 
     /**
-     * Metodo que elimina el producto de la tabla que actualmente esta seleccionado
+     * Metodo que elimina el producto de la tabla que actualmente esta
+     * seleccionado
      */
     @FXML
     private void eliminar() {
-        
+
         //Recoge el numero de la fila seleccionada
         int seleccion = tabla.getSelectionModel().getSelectedIndex();
         if (seleccion >= 0) {
@@ -140,8 +149,8 @@ public class ControladorCrearSolicitud {
     }
 
     /**
-     * Metodo que comprueba que la solicitud tiene productos, y si es asi,
-     * llama al metodo para insertar los datos en la bd
+     * Metodo que comprueba que la solicitud tiene productos, y si es asi, llama
+     * al metodo para insertar los datos en la bd
      */
     @FXML
     private void enviarSolicitud() {
@@ -206,8 +215,9 @@ public class ControladorCrearSolicitud {
 
     /**
      * Metodo que asigna valor a las variables con la que se va a interactuar
+     *
      * @param dial
-     * @param prin 
+     * @param prin
      */
     public void setDialog(Stage dial, Stage prin) {
         dialogo = dial;

@@ -2,15 +2,18 @@ package vista;
 
 import adicional.DAORma;
 import adicional.Producto;
+import adicional.AbrirReporte;
 import adicional.RMA;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -18,10 +21,13 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JRException;
 import proyectointerfacesfx.Principal;
 
 /**
- * Clase que controla el comportamiento de la pantalla que muestra las solicitudes enviadas
+ * Clase que controla el comportamiento de la pantalla que muestra las
+ * solicitudes enviadas
+ *
  * @author Manuel Jesus Sanchez Vega
  */
 public class ControladorMostrarRma implements Initializable {
@@ -32,13 +38,14 @@ public class ControladorMostrarRma implements Initializable {
     private TableColumn<RMA, Integer> columnaReferencia;
     @FXML
     private TableColumn<RMA, String> columnaFecha;
-    private Stage primer;
+    private Stage primer, dialogo;
 
     /**
-     * Metodo que inicializa las columnas de la tabla a mostrar y le
-     * añade a la tabla un controlador para captar el doble clic
+     * Metodo que inicializa las columnas de la tabla a mostrar y le añade a la
+     * tabla un controlador para captar el doble clic
+     *
      * @param url
-     * @param rb 
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -61,16 +68,44 @@ public class ControladorMostrarRma implements Initializable {
     }
 
     /**
-     * Metodo que asigna la primeraStage al controlador, para
-     * poder interactuar con ella en otros metodos
+     * Metodo que asigna la primeraStage al controlador, para poder interactuar
+     * con ella en otros metodos
+     *
      * @param primerStage vista con la que se va a interactuar
      */
-    void setDialog(Stage primerStage) {
+    void setDialogs(Stage primerStage, Stage dialogo) {
         primer = primerStage;
+        this.dialogo = dialogo;
+
     }
 
     /**
-     * Metodo que abre una nueva ventana que muestra los detalles de una solicitud en concreto,
+     * Metodo que cierra la ventana actual
+     */
+    @FXML
+    private void volver() {
+        dialogo.close();
+    }
+
+    /**
+     * Llama al metodo abrir reporte de la clase auxiliar
+     */
+    @FXML
+    private void abrirReporteRmaCount() throws ClassNotFoundException, SQLException, JRException, IOException {
+        AbrirReporte.abrirRmaCount();
+    }
+
+    /**
+     * Llama al metodo abrir reporte de la clase auxiliar
+     */
+    @FXML
+    private void abrirReporteRma() throws ClassNotFoundException, SQLException, JRException, IOException {
+        AbrirReporte.abrirRma();
+    }
+
+    /**
+     * Metodo que abre una nueva ventana que muestra los detalles de una
+     * solicitud en concreto,
      */
     public void verDetalles() {
         try {
@@ -98,6 +133,15 @@ public class ControladorMostrarRma implements Initializable {
 
         } catch (IOException e) {
             e.printStackTrace();
+        } catch(NullPointerException a){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("No hay selección");
+            alert.setHeaderText("Ninguna solicitud seleccionada");
+            alert.setContentText("Por favor seleccione una solicitud de la tabla.");
+            //Modificamos el estilo
+            alert.getDialogPane().getStylesheets().add(
+                    getClass().getResource("sky.css").toExternalForm());
+            alert.showAndWait();
         }
     }
 

@@ -9,17 +9,21 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import adicional.DAORma;
 import adicional.Producto;
+import java.net.URL;
 import java.util.LinkedList;
+import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 import proyectointerfacesfx.Principal;
 
 /**
- * Clase que maneja el comportamiento de la vista principal
- * Contiene la variable productos, una lista donde trabaja con 
- * los productos en memoria, para despues insertarlos en la bd
+ * Clase que maneja el comportamiento de la vista principal Contiene la variable
+ * productos, una lista donde trabaja con los productos en memoria, para despues
+ * insertarlos en la bd
+ *
  * @author Manuel Jesus Sanchez Vega
  */
-public class ControladorPrincipal {
+public class ControladorPrincipal implements Initializable {
 
     private Stage primerStage;
     protected static LinkedList<Producto> productos;
@@ -84,7 +88,7 @@ public class ControladorPrincipal {
 
             //Annadir controlador y datos
             ControladorMostrarRma controlador = loader.getController();
-            controlador.setDialog( primerStage);
+            controlador.setDialogs(primerStage, dialogo);
 
             //Modifica el dialogo para que no se pueda cambiar el tamaño y lo muestra
             dialogo.setResizable(false);
@@ -93,6 +97,13 @@ public class ControladorPrincipal {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        productos = new LinkedList<Producto>();
+
     }
 
 }

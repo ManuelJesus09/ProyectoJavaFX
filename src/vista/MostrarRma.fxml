@@ -2,23 +2,44 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" stylesheets="@sky.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.ControladorMostrarRma">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="329.0" prefWidth="500.0" stylesheets="@sky.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.ControladorMostrarRma">
    <children>
-      <TableView fx:id="tabla" prefHeight="297.0" prefWidth="600.0" stylesheets="@sky.css">
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-         <columns>
-            <TableColumn fx:id="columnaReferencia" prefWidth="75.0" text="Referencia de la solicitud" />
-            <TableColumn fx:id="columnaFecha" prefWidth="75.0" text="Fecha de la solicitud" />
-         </columns>
-      </TableView>
-      <AnchorPane prefHeight="91.0" prefWidth="600.0" stylesheets="@sky.css">
+      <BorderPane prefHeight="280.0" prefWidth="500.0">
+         <top>
+            <MenuBar BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="Archivo">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#abrirReporteRma" text="Reporte RMA" />
+                        <MenuItem mnemonicParsing="false" onAction="#abrirReporteRmaCount" text="Reporte RMA con grafico" />
+                        <MenuItem mnemonicParsing="false" onAction="#volver" text="Volver" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+         <center>
+            <TableView fx:id="tabla" stylesheets="@sky.css" BorderPane.alignment="CENTER">
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+               <columns>
+                  <TableColumn fx:id="columnaReferencia" prefWidth="75.0" text="Referencia de la solicitud" />
+                  <TableColumn fx:id="columnaFecha" prefWidth="75.0" text="Fecha de la solicitud" />
+               </columns>
+            </TableView>
+         </center>
+      </BorderPane>
+      <AnchorPane prefHeight="131.0" prefWidth="500.0" stylesheets="@sky.css">
          <children>
             <Button layoutX="366.0" layoutY="27.0" mnemonicParsing="false" onAction="#verDetalles" text="Detalles" />
             <Label layoutX="51.0" layoutY="7.0" prefHeight="77.0" prefWidth="245.0" text="Para ver los detalles de una solicitud, puedes hacer doble click en ella o pulsar en detalles" textAlignment="JUSTIFY" wrapText="true" />

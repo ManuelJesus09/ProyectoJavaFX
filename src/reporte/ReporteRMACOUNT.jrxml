@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteRMACOUNT" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e7eebaa4-068b-407f-bf7a-d4c2e72a1292">
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[cHJvZHVjdG8gQVMgLDI3MCw0NCw3YmZlNmJiOS05ODkwLTQ5ZTEtOTVkNi1iNTk3M2ExNTljNjY7
+cHJvYmxlbWEgQVMgLDEzNCwyMCw0NWE1MDc3YS1kNjA3LTQ2OTYtOGM3MC0wOTg1YzE1ZGY2NjE7
+cm1hIEFTICw2LDcsZDMwNWI5MmQtZGNkOS00MzVhLTkxNDUtNDQ1YTRkOGI2YzI1Ow==]]>
+	</property>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQlite3Adapter.xml"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT rma.id,
+	rma.fecha,
+	count(rma.id)
+FROM producto
+	INNER JOIN rma ON 
+	 rma.id = problema.id_rma 
+	INNER JOIN problema ON 
+	 problema.id_producto = producto.id
+	GROUP BY rma.id]]>
+	</queryString>
+	<field name="id" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rma"/>
+	</field>
+	<field name="fecha" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.label" value="fecha"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rma"/>
+	</field>
+	<field name="count(rma.id)" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.label" value="count(rma.id)"/>
+	</field>
+	<title>
+		<band height="80" splitType="Stretch">
+			<image>
+				<reportElement x="275" y="0" width="300" height="64" uuid="d7cb9de5-f1d6-4e9a-8441-72f5e2127742"/>
+				<imageExpression><![CDATA["src/reporte/leaf_banner_green.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Title" x="-10" y="0" width="290" height="71" uuid="3eb8e1ab-7e38-4368-89db-62b6501a8c67"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Solicitudes RMA con gráfico]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="d69c6691-e92e-45c5-bf2d-c1dc15dabb91"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="185" height="15" uuid="fd913ec5-8b5f-4158-a020-88f660ceb826">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="10a9cc3b-2e5c-463f-a710-357c22ecc9b1"/>
+				</reportElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="185" y="19" width="185" height="15" uuid="d0c848e1-ee8c-4b40-a394-ec2e529fb84a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f7ca5e12-feac-4d3c-9d64-e592a26eb188"/>
+				</reportElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="370" y="19" width="185" height="15" uuid="c71ea8d0-7482-4ef6-83ef-41784d15fa28">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fadbbf4b-1e2d-497d-8f46-c6a7b308af45"/>
+				</reportElement>
+				<text><![CDATA[Numero de productos]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="29" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="f367c019-9cb7-431c-8713-5a96f9b889aa"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="185" height="15" uuid="78dd9230-7b9f-4a54-b340-8b881f45f363">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="10a9cc3b-2e5c-463f-a710-357c22ecc9b1"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="185" y="0" width="185" height="15" uuid="ca001b66-5158-494f-acd7-98d9186ddaaa">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f7ca5e12-feac-4d3c-9d64-e592a26eb188"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="370" y="0" width="185" height="15" uuid="faafabd3-f6e0-4eb8-bc91-5f7f7b9b9d30">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fadbbf4b-1e2d-497d-8f46-c6a7b308af45"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{count(rma.id)}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="256">
+			<barChart>
+				<chart evaluationTime="Report">
+					<reportElement x="136" y="80" width="283" height="120" uuid="f80238e1-a5cd-424c-8a89-54445f0ef6c5"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<dataset resetType="Report"/>
+					<categorySeries>
+						<seriesExpression><![CDATA["Productos vendidos"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{fecha}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{count(rma.id)}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</pageFooter>
+</jasperReport>
